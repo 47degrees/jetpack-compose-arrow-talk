@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">KotlinMeetup</string>
+
+    <!--  Arrow repositories screen  -->
+    <string name="arrow_repositories">Arrow Repositories</string>
+    <string name="errors_repositories_not_found">Oeps, repositories not found 😬</string>
+    <string name="repo_owner">arrow-kt</string>
+
+    <!--  Arrow repository detail screen  -->
+    <string name="arrow_repository_detail">Arrow Repository Detail</string>
+    <string name="errors_repository_not_found">Oeps, repository not found 😬</string>
+
+    <string name="errors_unknown">Oeps, unknown error 🙆🏻‍♂️</string>
+
+</resources>

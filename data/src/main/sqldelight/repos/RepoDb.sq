@@ -1,0 +1,28 @@
+import org.threeten.bp.LocalDateTime;
+
+CREATE TABLE repoDb(
+  id INTEGER as Long NOT NULL UNIQUE PRIMARY KEY,
+  name TEXT NOT NULL,
+  description TEXT NOT NULL,
+  programming_language TEXT NOT NULL DEFAULT "",
+  stargazers INTEGER as Long NOT NULL DEFAULT 0,
+  forks INTEGER as Long NOT NULL DEFAULT 0,
+  updated_at TEXT as LocalDateTime NOT NULL,
+  html_url TEXT NOT NULL,
+  collaborators_url TEXT NOT NULL
+);
+
+selectAll:
+SELECT * FROM repoDb
+ORDER BY updated_at DESC;
+
+selectById:
+SELECT * FROM repoDb
+WHERE id = ?;
+
+selectByName:
+SELECT * FROM repoDb
+WHERE name = ?;
+
+insertOrReplace:
+INSERT OR REPLACE INTO repoDb VALUES ?;
