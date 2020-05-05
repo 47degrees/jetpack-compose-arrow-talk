@@ -65,6 +65,7 @@ dependencies {
     implementation "androidx.ui:ui-tooling:$composeVersion"
     implementation "androidx.ui:ui-foundation:$composeVersion"
     implementation "androidx.ui:ui-animation:$composeVersion"
+    implementation "androidx.ui:ui-livedata:$composeVersion"
 
     // Navigation component
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"

@@ -27,12 +27,12 @@ class ArrowReposFragment : BaseFragment(), RepoActions {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.init()
         (view as ViewGroup).setContent(Recomposer.current()) {
             MaterialTheme(colors = lightThemeColors) {
                 ArrowReposScreen(viewModel.state, this)
             }
         }
+        viewModel.init()
     }
 
     override fun repoClick(repo: Repo) =

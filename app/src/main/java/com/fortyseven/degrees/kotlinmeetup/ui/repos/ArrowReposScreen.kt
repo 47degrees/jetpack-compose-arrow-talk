@@ -15,6 +15,7 @@ import androidx.ui.layout.fillMaxWidth
 import androidx.ui.layout.padding
 import androidx.ui.layout.preferredSize
 import androidx.ui.layout.wrapContentSize
+import androidx.ui.livedata.observeAsState
 import androidx.ui.material.MaterialTheme
 import androidx.ui.material.ripple.ripple
 import androidx.ui.res.colorResource
@@ -30,7 +31,6 @@ import com.fortyseven.degrees.kotlinmeetup.ui.composables.ErrorView
 import com.fortyseven.degrees.kotlinmeetup.ui.composables.LoadingView
 import com.fortyseven.degrees.kotlinmeetup.ui.composables.VStack
 import com.fortyseven.degrees.kotlinmeetup.ui.composables.exhaustive
-import com.fortyseven.degrees.kotlinmeetup.ui.composables.observe
 import com.fortyseven.degrees.kotlinmeetup.ui.failure.ArrowReposFailure
 import com.fortyseven.degrees.kotlinmeetup.ui.model.Repo
 
@@ -40,17 +40,20 @@ interface RepoActions : Actions {
 
 @Composable
 fun ArrowReposScreen(
-    state: LiveData<ArrowRepoState<ArrowReposFailure, List<Repo>>>,
+    liveData: LiveData<ArrowRepoState<ArrowReposFailure, List<Repo>>>,
     actions: Actions
-) = state.observe?.let { arrowReposState: ArrowRepoState<ArrowReposFailure, List<Repo>> ->
-    when (arrowReposState) {
+) = liveData.observeAsState().value?.let { state: ArrowRepoState<ArrowReposFailure, List<Repo>> ->
+    when (state) {
         is ArrowRepoState.Loading -> LoadingView()
-        is ArrowRepoState.Data -> RepositoriesListView(arrowReposState.data, actions as RepoActions)
+        is ArrowRepoState.Data -> RepositoriesListView(
+            state.data,
+            actions as RepoActions
+        )
         is ArrowRepoState.Error -> {
             ErrorView(
-                when (arrowReposState.error) {
+                when (state.error) {
                     is ArrowReposFailure.NoRepositories -> stringResource(R.string.errors_repositories_not_found)
-                    is ArrowReposFailure.RepositoriesError -> arrowReposState.error.throwable.message
+                    is ArrowReposFailure.RepositoriesError -> state.error.throwable.message
                         ?: stringResource(R.string.errors_unknown)
                 }
             )

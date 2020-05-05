@@ -28,11 +28,11 @@ class ArrowRepoDetailFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.init(args.repoName)
         (view as ViewGroup).setContent(Recomposer.current()) {
             MaterialTheme(colors = lightThemeColors) {
                 ArrowRepoDetailScreen(viewModel.state)
             }
         }
+        viewModel.init(args.repoName)
     }
 }
