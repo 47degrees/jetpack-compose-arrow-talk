@@ -91,6 +91,8 @@ obj/
 .idea/caches/build_file_checksums.ser
 .idea/codeStyles/codeStyleConfig.xml
 .idea/codeStyles/Project.xml
+.idea/inspectionProfiles/
+.idea/sqldelight/
 
 # OS-specific files
 .DS_Store

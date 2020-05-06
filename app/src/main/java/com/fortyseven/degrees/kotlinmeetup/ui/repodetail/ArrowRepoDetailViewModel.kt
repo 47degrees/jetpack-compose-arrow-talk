@@ -32,10 +32,10 @@ class ArrowRepoDetailViewModel @Inject constructor(
         get() = _state
 
     fun init(repoName: String) {
-        viewModelScope.unsafeRunIO(dispatchRepoDetail(repoName)) {}
+        viewModelScope.unsafeRunIO(getArrowRepoDetails(repoName)) {}
     }
 
-    private fun dispatchRepoDetail(repoName: String) = getArrowRepoDetail(repoName).attempt()
+    private fun getArrowRepoDetails(repoName: String) = arrowRepoDetailUseCase(repoName).attempt()
         .continueOn(Dispatchers.Main)
         .effectMap {
             it.fold(
@@ -51,7 +51,7 @@ class ArrowRepoDetailViewModel @Inject constructor(
             )
         }
 
-    private fun getArrowRepoDetail(repoName: String): IO<ArrowRepoState<ArrowRepoDetailFailure, Repo>> =
+    private fun arrowRepoDetailUseCase(repoName: String): IO<ArrowRepoState<ArrowRepoDetailFailure, Repo>> =
         IO.fx {
             continueOn(Dispatchers.IO)
             val repoDetail = arrowReposRepository.getArrowRepo(repoName).bind()

@@ -44,7 +44,11 @@ fun BadgeEnvelope(count: Int) {
 
 @Composable
 fun Envelope(count: Int, children: @Composable() () -> Unit) =
-    Box(modifier = Modifier.padding(16.dp).fillMaxWidth().wrapContentSize(Alignment.Center)) {
+    Box(
+        modifier = Modifier.padding(16.dp)
+            .fillMaxWidth()
+            .wrapContentSize(Alignment.Center)
+    ) {
         Image(
             asset = imageResource(
                 when {
@@ -92,7 +96,7 @@ fun AddEmailButton(counterState: CounterState) {
 fun AddEmailButton(count: Int, countCb: (Int) -> Unit) {
     Button(
         onClick = { countCb(count + 1) },
-        backgroundColor = if (count > 5) Color.Green else lightThemeColors.primary
+        backgroundColor = if (count > 5) lightThemeColors.secondary else lightThemeColors.primary
     ) {
         Text(text = "Add email (${count})")
     }
@@ -118,14 +122,18 @@ fun DeleteEmailButton(count: Int, countCb: (Int) -> Unit) {
     }
 }
 
-@Preview("envelope example4")
+//@Preview("envelope example4")
 @Composable
 private fun previewExample4() {
     MaterialTheme(
         colors = lightThemeColors
     ) {
         val counterState = CounterState(count = 4)
-        Column(modifier = Modifier.fillMaxWidth().padding(8.dp).wrapContentSize(Alignment.Center)) {
+        Column(
+            modifier = Modifier.padding(8.dp)
+                .fillMaxWidth()
+                .wrapContentSize(Alignment.Center)
+        ) {
             BadgeEnvelope(counterState.count)
             Spacer(Modifier.preferredHeight(8.dp))
             Row(modifier = Modifier.fillMaxWidth().wrapContentSize(Alignment.Center)) {
@@ -137,30 +145,33 @@ private fun previewExample4() {
     }
 }
 
-@Preview("envelope example5")
+@Preview("Unread Messages")
 @Composable
 private fun previewExample5() {
-    InboxExample()
+    MaterialTheme(
+        colors = lightThemeColors
+    ) {
+        InboxExample()
+    }
 }
 
-    @Composable
-    fun InboxExample() {
-        val (counterState, counterStateCb) = state { 0 }
-        Column(
+@Composable
+fun InboxExample() {
+    val (counterState, counterStateCb) = state { 5 }
+    Column(
+        modifier = Modifier.fillMaxWidth()
+            .padding(8.dp)
+            .wrapContentSize(Alignment.Center)
+    ) {
+        BadgeEnvelope(counterState)
+        Spacer(Modifier.preferredHeight(8.dp))
+        Row(
             modifier = Modifier.fillMaxWidth()
-                .padding(8.dp)
                 .wrapContentSize(Alignment.Center)
         ) {
-            BadgeEnvelope(counterState)
-            Spacer(Modifier.preferredHeight(8.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth()
-                    .wrapContentSize(Alignment.Center)
-            ) {
-                AddEmailButton(counterState, counterStateCb)
-                Spacer(Modifier.preferredWidth(8.dp))
-                DeleteEmailButton(counterState, counterStateCb)
-            }
+            AddEmailButton(counterState, counterStateCb)
+            Spacer(Modifier.preferredWidth(8.dp))
+            DeleteEmailButton(counterState, counterStateCb)
         }
     }
-
+}

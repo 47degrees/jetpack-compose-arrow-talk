@@ -15,7 +15,6 @@ import androidx.ui.layout.wrapContentSize
 import androidx.ui.material.CircularProgressIndicator
 import androidx.ui.material.Divider
 import androidx.ui.material.MaterialTheme
-import androidx.ui.res.colorResource
 import androidx.ui.res.imageResource
 import androidx.ui.unit.dp
 import com.fortyseven.degrees.kotlinmeetup.R

@@ -35,7 +35,7 @@ class ArrowReposViewModel @Inject constructor(
         getArrowRepos().unsafeRunScoped(viewModelScope) {}
     }
 
-    private fun getArrowRepos() = getArrowReposIO().attempt()
+    private fun getArrowRepos() = arrowReposUseCase().attempt()
         .continueOn(Dispatchers.Main)
         .effectMap {
             it.fold(
@@ -51,7 +51,7 @@ class ArrowReposViewModel @Inject constructor(
             )
         }
 
-    private fun getArrowReposIO(): IO<ArrowRepoState<ArrowReposFailure, List<Repo>>> =
+    private fun arrowReposUseCase(): IO<ArrowRepoState<ArrowReposFailure, List<Repo>>> =
         IO.fx {
             continueOn(Dispatchers.IO)
             val repositories: List<RepoDb> = arrowReposRepository.getArrowRepos().bind()
